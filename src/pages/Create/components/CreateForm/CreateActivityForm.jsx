@@ -8,6 +8,7 @@ import {
 import {withRouter} from "react-router-dom";
 import { Base64 } from 'js-base64';
 import {MarketData} from '../../../../data/MarketContent.js'
+import NebUtils from '../../../../util/NebUtils.js'
 import {
   Input,
   Button,
@@ -22,8 +23,6 @@ import {
 
 const Toast = Feedback.toast;
 const {Row, Col} = Grid;
-
-const dappAddress = "n1hadozLwXiqLNexkeh6tsKFTHfVRsMNqpe";
 
 @withRouter
 export default class CreateActivityForm extends Component {
@@ -78,13 +77,6 @@ export default class CreateActivityForm extends Component {
     });
   };
 
-  checkInstalledPlugin = () => {
-    return typeof(webExtensionWallet) !== 'undefined';
-  };
-
-  handleResult = (txHash) => {
-    Toast.success("已提交交易，交易成功即制作&发送兑换券成功！")
-  };
 
   submit = () => {
     this.formRef.validateAll((errors, values) => {
@@ -92,37 +84,15 @@ export default class CreateActivityForm extends Component {
       if (errors) {
         return;
       }
-      if (!this.checkInstalledPlugin()) {
+      if (!NebUtils.checkInstalledPlugin()) {
         Toast.error('还未安装Chrome扩展，请点击页面上方的下载按钮');
       }
       const contract = {
         function: 'create',
         args: `["${values.toAddr}", "${values.title}", "${values.contnet}", "${Base64.encode(values.remark)}"]`,
       };
-      window.postMessage({
-        'target': 'contentscript',
-        'data': {
-          'to': dappAddress,
-          'value': '0',
-          'contract': {
-            'function': contract.function,
-            'args': contract.args,
-          },
-        },
-        'method': 'neb_sendTransaction',
-      }, '*');
-      window.addEventListener('message', resp => {
-        console.log('response of push: ', resp);
-        try {
-          const dat = resp.data.data;
-          if (!!dat.txhash) {
-            console.log('Transaction hash:\n' + JSON.stringify(dat.txhash, null, '\t'));
-            if (JSON.stringify(dat).indexOf('Error') === -1) {
-              this.handleResult(dat.txhash.txhash);
-            }
-          }
-        } catch (e) {
-        }
+      NebUtils.pluginCall(contract.function, contract.args, (txHash) => {
+        Toast.success("已提交交易，交易成功即制作&发送兑换券成功！")
       });
     });
   };

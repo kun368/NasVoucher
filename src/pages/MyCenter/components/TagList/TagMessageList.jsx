@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {Tab, Feedback, Grid} from '@icedesign/base';
 import IceContainer from '@icedesign/container';
 import './TagMessageList.scss';
-import NebPay from 'nebpay';
 import {Base64} from 'js-base64';
+import NebUtils from "../../../../util/NebUtils";
+
 const {Row, Col} = Grid;
 
 const Toast = Feedback.toast;
-const nebPay = new NebPay();
-
-const dappAddress = "n1hadozLwXiqLNexkeh6tsKFTHfVRsMNqpe";
 
 export default class TagMessageList extends Component {
   static displayName = 'TagMessageList';
@@ -27,33 +25,28 @@ export default class TagMessageList extends Component {
   };
 
   componentDidMount() {
-    if (!this.checkInstalledPlugin()) {
+    if (!NebUtils.checkInstalledPlugin()) {
       Toast.error('还未安装Chrome扩展，请点击页面上方的下载按钮');
-      return;
     }
     const contract = {
       function: 'query',
       args: `[]`,
     };
-    Toast.loading("正在获取您的兑现券数据");
-    nebPay.simulateCall(dappAddress, '0', contract.function, contract.args, {
-      qrcode: {
-        showQRCode: false,
+    NebUtils.pluginSimCall(
+      contract.function,
+      contract.args,
+      (err) => {
+        Toast.error("获取数据失败: " + err);
       },
-      listener: (resp) => {
-        if (resp.execute_err !== "") {
-          Toast.error("获取数据失败: " + resp.execute_err);
-          return;
-        }
-        const item = JSON.parse(resp.result);
+      (item) => {
         console.log(item);
         this.setState({
           dataSourceSend: item.send.arr,
           dataSourceRecv: item.recv.arr,
         });
         Toast.success("获取您的兑现券数据成功");
-      },
-    });
+      }
+    );
   }
 
   renderItem = (item, idx) => {
@@ -62,23 +55,27 @@ export default class TagMessageList extends Component {
 
         <div>
           <div style={styles.title}>
-            <span style={{fontWeight: 900}}>兑现券名：</span>{ item.title }
-          </div><br/>
+            <span style={{fontWeight: 900}}>兑现券名：</span>{item.title}
+          </div>
+          <br/>
 
           <div style={styles.title}>
-            <span style={{fontWeight: 900}}>发送者：</span>{ item.from }
-          </div><br/>
+            <span style={{fontWeight: 900}}>发送者：</span>{item.from}
+          </div>
+          <br/>
 
           <div style={styles.title}>
-            <span style={{fontWeight: 900}}>接收者：</span>{ item.to }
-          </div><br/>
+            <span style={{fontWeight: 900}}>接收者：</span>{item.to}
+          </div>
+          <br/>
 
           <div style={styles.title}>
-            <span style={{fontWeight: 900}}>内容：</span>{ item.content }
-          </div><br/>
+            <span style={{fontWeight: 900}}>内容：</span>{item.content}
+          </div>
+          <br/>
 
           <div style={styles.title}>
-            <span style={{fontWeight: 900}}>备注：</span>{ Base64.decode(item.remark) }
+            <span style={{fontWeight: 900}}>备注：</span>{Base64.decode(item.remark)}
           </div>
         </div>
       </div>
@@ -93,8 +90,8 @@ export default class TagMessageList extends Component {
             <Tab.TabPane key={0} tab={`我发送的兑现券（${this.state.dataSourceSend.length}）`}>
               {this.state.dataSourceSend.length === 0 ? '暂无数据' :
                 this.state.dataSourceSend.map((item, idx) => {
-                return this.renderItem(item, idx, 0)
-              })}
+                  return this.renderItem(item, idx, 0)
+                })}
             </Tab.TabPane>
             <Tab.TabPane key={1} tab={`我收到的兑现券（${this.state.dataSourceRecv.length}）`}>
               {this.state.dataSourceRecv.length === 0 ? '暂无数据' :
