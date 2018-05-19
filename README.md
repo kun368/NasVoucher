@@ -5,13 +5,13 @@
 [![ice](https://img.shields.io/badge/developing%20with-ICE-2077ff.svg)](https://github.com/alibaba/ice)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/kun368/NasPasteBin)
 
-#### [系统地址](http://will.zzkun.com)
+#### [系统地址](http://voucher.zzkun.com)
 
 #### [NAS-DAPP开发者注册](https://incentive.nebulas.io/cn/signup.html?invite=OILxo)
 
 ## 简介
 
-**NasVoucher是基于NAS智能合约的去中心化兑换券平台, 致力于构建增进情侣、朋友、亲人之间信任的新一代诺言兑换保存平台**
+**NasVoucher是基于NAS智能合约的去中心化兑换券平台，致力于构建增进情侣、朋友、亲人之间信任的新一代诺言兑换券保存平台**
 
 情侣、朋友间维护增进感情的神器。口头约定？许下承诺？打个欠条？不如发一张兑现券。以后再有人说下次请你吃饭，麻烦把这个DApp丢给Ta。
 
