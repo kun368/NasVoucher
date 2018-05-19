@@ -4,6 +4,9 @@
 
 import HeaderAsideFooterLayout from './layouts/HeaderAsideFooterLayout';
 import Home from './pages/Home';
+import Market from './pages/Market';
+import Create from './pages/Create';
+import MyCenter from './pages/MyCenter';
 import NotFound from './pages/NotFound';
 
 const routerConfig = [
@@ -11,6 +14,21 @@ const routerConfig = [
     path: '/',
     layout: HeaderAsideFooterLayout,
     component: Home,
+  },
+  {
+    path: '/Market',
+    layout: HeaderAsideFooterLayout,
+    component: Market,
+  },
+  {
+    path: '/Create/:typeId',
+    layout: HeaderAsideFooterLayout,
+    component: Create,
+  },
+  {
+    path: '/MyCenter',
+    layout: HeaderAsideFooterLayout,
+    component: MyCenter,
   },
   {
     path: '*',

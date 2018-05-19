@@ -11,7 +11,11 @@ class Vouncher {
   txHash = '';
   time = 0;
 
+
   constructor(text) {
+    if (!text) {
+      return;
+    }
     const o = JSON.parse(text);
     this.title = o.title;
     this.from = o.from;
@@ -46,7 +50,7 @@ NasVoucher.prototype = {
     this[collectionName].put(key, item);
   },
 
-  createVoucher: function (to, title, contnet, remark) {
+  create: function (to, title, contnet, remark) {
     const item = new Vouncher();
     item.title = title;
     item.from = Blockchain.transaction.from;
@@ -60,7 +64,7 @@ NasVoucher.prototype = {
     return item;
   },
 
-  queryMy: function () {
+  query: function () {
     const from = Blockchain.transaction.from;
     let send = this.sendMap.get(from);
     let recv = this.recvMap.get(from);

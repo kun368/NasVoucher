@@ -28,27 +28,22 @@ const asideMenuConfig = [
   {
     name: '首页',
     path: '/',
-    icon: 'home',
+    icon: 'home2',
   },
   {
-    name: '用户管理',
-    path: '/user',
+    name: '市场',
+    path: '/Market',
+    icon: 'shop',
+  },
+  {
+    name: '制作',
+    path: '/Create/:typeId',
+    icon: 'publish',
+  },
+  {
+    name: '我的',
+    path: '/MyCenter',
     icon: 'yonghu',
-  },
-  {
-    name: '系统设置',
-    path: '/setting',
-    icon: 'shezhi',
-    children: [
-      {
-        name: '基本设置',
-        path: '/base',
-      },
-      {
-        name: '评论设置',
-        path: '/comment',
-      },
-    ],
   },
 ];
 
