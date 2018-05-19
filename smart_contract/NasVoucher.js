@@ -6,7 +6,7 @@ class Vouncher {
   title = '';
   from = '';
   to = '';
-  contnet = '';
+  content = '';
   remark = '';
   txHash = '';
   time = 0;
@@ -20,7 +20,7 @@ class Vouncher {
     this.title = o.title;
     this.from = o.from;
     this.to = o.to;
-    this.contnet = o.content;
+    this.content = o.content;
     this.remark = o.remark;
     this.txHash = o.txHash;
     this.time = o.time;
@@ -50,12 +50,12 @@ NasVoucher.prototype = {
     this[collectionName].put(key, item);
   },
 
-  create: function (to, title, contnet, remark) {
+  create: function (to, title, content, remark) {
     const item = new Vouncher();
     item.title = title;
     item.from = Blockchain.transaction.from;
     item.to = to;
-    item.contnet = contnet;
+    item.content = content;
     item.remark = remark;
     item.txHash = Blockchain.transaction.hash;
     item.time = Blockchain.transaction.timestamp * 1000;

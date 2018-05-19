@@ -18,6 +18,8 @@
     "enquire-js": "^0.1.2",
     "foundation-symbol": "^0.1.0",
     "js-base64": "^2.4.5",
+    "nebpay": "0.0.5",
+    "nebulas": "^0.5.0",
     "prop-types": "^15.6.1",
     "react-document-title": "^2.0.3",
     "react-router": "^4.2.0",

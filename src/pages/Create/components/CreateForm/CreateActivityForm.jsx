@@ -194,6 +194,7 @@ export default class CreateActivityForm extends Component {
                 <Col s="16" l="16">
                   <IceFormBinder name="remark">
                     <Input multiple
+                           rows={8}
                            style={{width: '100%'}}
                            required
                            message="请填写备注"/>

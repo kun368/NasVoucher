@@ -45,8 +45,8 @@ const MarketData = [
   {
     'type': 1,
     "img": "select",
-    "title": "洗完做饭券",
-    "desc": "立即洗完做饭",
+    "title": "洗碗做饭券",
+    "desc": "立即洗碗做饭",
   },
   {
     'type': 1,
