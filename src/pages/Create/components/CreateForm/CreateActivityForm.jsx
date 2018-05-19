@@ -53,7 +53,7 @@ export default class CreateActivityForm extends Component {
             toAddr: '',
             title: item.title,
             contnet: item.desc,
-            remark: '本兑换券最终解释权归甲方（制作方所有），有效期至xxx...'
+            remark: '本兑换券最终解释权归xxx所有，兑换券有效期至xxxx年xx月xx日...'
           },
         })
       }
